@@ -45,11 +45,8 @@ static int cmd_si(char *args)
 		num = 1;
 	else
 	{
-		unsigned length = strlen(args);
-		int i = 0;
-		for (; i < length; ++i)
-			num = 10 * num + (args[i] - '0');
-		if (num < 1)
+		sscanf(args, "%d", &num);
+		if(num<1)
 			num = 1;
 	}	
 	cpu_exec(num);
