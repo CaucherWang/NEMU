@@ -40,12 +40,13 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args)
 {
+	char *arg = strtok(NULL, " ");
 	int num=0;
-	if(args==NULL)
+	if(arg==NULL)
 		num = 1;
 	else
 	{
-		sscanf(args, "%d", &num);
+		sscanf(arg, "%d", &num);
 		if(num<1)
 			num = 1;
 	}	
