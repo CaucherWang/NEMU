@@ -86,11 +86,11 @@ static int cmd_x(char *args)
 	hwaddr_t begin;
 	sscanf(arg1,"%d",&num);
 	sscanf(arg2,"0x%x",&begin);
-	printf("%#x:",begin);
+	printf("%#08x:",begin);
 	int i=0;
 	for(i=0;i<num;++i)
 	{
-		printf("\t%08x",hwaddr_read(begin,4));
+		printf("\t%#08x",hwaddr_read(begin,4));
 		begin+=4;
 		if(i%4==3)
 		printf("\n\t");
