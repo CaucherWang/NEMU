@@ -59,15 +59,15 @@ static int cmd_info(char * args)
 	char *arg=strtok(NULL," ");
 	if(!strcmp(arg,"r"))
 	{
-		printf("eax:\t0x%x\t%8d\n",cpu.eax,cpu.eax);
-		printf("edx:\t0x%x\t%8d\n",cpu.edx,cpu.edx);
-		printf("ecx:\t0x%x\t%8d\n",cpu.ecx,cpu.ecx);
-		printf("ebx:\t0x%x\t%8d\n",cpu.ebx,cpu.ebx);
-		printf("ebp:\t0x%x\t%8d\n",cpu.ebp,cpu.ebp);
-		printf("esi:\t0x%x\t%8d\n",cpu.esi,cpu.esi);
-		printf("edi:\t0x%x\t%8d\n",cpu.edi,cpu.edi);
-		printf("esp:\t0x%x\t%8d\n",cpu.esp,cpu.esp);
-		printf("eip:\t0x%x\t%8d\n",cpu.eip,cpu.eip);
+		printf("eax:\t0x%08x\t%08d\n",cpu.eax,cpu.eax);
+		printf("edx:\t0x%08x\t%08d\n",cpu.edx,cpu.edx);
+		printf("ecx:\t0x%08x\t%08d\n",cpu.ecx,cpu.ecx);
+		printf("ebx:\t0x%08x\t%08d\n",cpu.ebx,cpu.ebx);
+		printf("ebp:\t0x%08x\t%08d\n",cpu.ebp,cpu.ebp);
+		printf("esi:\t0x%08x\t%08d\n",cpu.esi,cpu.esi);
+		printf("edi:\t0x%08x\t%08d\n",cpu.edi,cpu.edi);
+		printf("esp:\t0x%08x\t%08d\n",cpu.esp,cpu.esp);
+		printf("eip:\t0x%08x\t%08d\n",cpu.eip,cpu.eip);
 	}
 	else
 	{;}
