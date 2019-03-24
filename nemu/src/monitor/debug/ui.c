@@ -68,7 +68,7 @@ static int cmd_info(char * args)
 		int j=0;
 		for(i=0;i<4;++i)
 			for(j=0;j<2;++j)
-				printf("%s:\t0x%08x\t%08d\n",regsb[i+j],cpu.gpr[i]._8[j],cpu.gpr[i]._8[j]);
+				printf("%s:\t0x%08x\t%08d\n",regsb[i*2+j],cpu.gpr[i]._8[j],cpu.gpr[i]._8[j]);
 
 	}
 	else
