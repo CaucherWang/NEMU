@@ -77,22 +77,23 @@ static int cmd_info(char * args)
 }
 
 static int cmd_x(char *args)
-{/*
+{
 	char *arg1=strtok(NULL," ");
 	char *arg2=strtok(NULL," ");
 	unsigned num=0;
-	unsigned int *b=&num;
+	hwaddr_t begin;
 	sscanf(arg1,"%d",&num);
-	sscanf(arg2,"%x",&b);
-	printf("%x:",b);
+	sscanf(arg2,"0x%x",&begin);
+	printf("%#x:",begin);
 	int i=0;
 	for(i=0;i<num;++i)
 	{
-		printf("\t%x",*(b+i));
+		printf("\t%x",hwaddr_read(begin,4));
+		begin+=4;
 		if(i%4==0)
 		printf("\n");
 	}
-*/
+
 	return 0;
 
 }
