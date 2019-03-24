@@ -90,9 +90,9 @@ static int cmd_x(char *args)
 	int i=0;
 	for(i=0;i<num;++i)
 	{
-		printf("\t%x",hwaddr_read(begin,4));
+		printf("\t%08x",hwaddr_read(begin,4));
 		begin+=4;
-		if(i%4==0)
+		if(i%4==3)
 		printf("\n");
 	}
 	printf("\n");
