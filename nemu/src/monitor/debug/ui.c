@@ -93,7 +93,7 @@ static int cmd_x(char *args)
 		printf("\t%08x",hwaddr_read(begin,4));
 		begin+=4;
 		if(i%4==3)
-		printf("\n");
+		printf("\n\t");
 	}
 	printf("\n");
 	return 0;
