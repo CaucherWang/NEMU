@@ -95,7 +95,7 @@ static int cmd_x(char *args)
 		if(i%4==0)
 		printf("\n");
 	}
-
+	printf("\n");
 	return 0;
 
 }
