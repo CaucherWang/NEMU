@@ -54,6 +54,47 @@ static int cmd_si(char *args)
 	return 0;
 }
 
+static int cmd_info(char * args)
+{
+	char *arg=strtok(NULL," ");
+	if(!strcmp(arg,"r"))
+	{
+		printf("eax:\t%x\t%d\n",cpu.eax,cpu.eax);
+		printf("edx:\t%x\t%d\n",cpu.edx,cpu.edx);
+		printf("ecx:\t%x\t%d\n",cpu.ecx,cpu.ecx);
+		printf("ebx:\t%x\t%d\n",cpu.ebx,cpu.ebx);
+		printf("ebp:\t%x\t%d\n",cpu.ebp,cpu.ebp);
+		printf("esi:\t%x\t%d\n",cpu.esi,cpu.esi);
+		printf("edi:\t%x\t%d\n",cpu.edi,cpu.edi);
+		printf("esp:\t%x\t%d\n",cpu.esp,cpu.esp);
+		printf("eip:\t%x\t%d\n",cpu.eip,cpu.eip);
+	}
+	else
+	{;}
+	return 0;
+}
+
+static int cmd_x(char *args)
+{/*
+	char *arg1=strtok(NULL," ");
+	char *arg2=strtok(NULL," ");
+	unsigned num=0;
+	unsigned int *b=&num;
+	sscanf(arg1,"%d",&num);
+	sscanf(arg2,"%x",&b);
+	printf("%x:",b);
+	int i=0;
+	for(i=0;i<num;++i)
+	{
+		printf("\t%x",*(b+i));
+		if(i%4==0)
+		printf("\n");
+	}
+*/
+	return 0;
+
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -62,7 +103,9 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-	{"si","execute the program step by step, N steps in total",cmd_si}
+	{"si","execute the program step by step, N steps in total",cmd_si},
+	{"info","info r means print the state of registers, while info w means print the information of moniting point",cmd_info},
+	{"x","x N EXPR, solve the EXPR and view the solution as the beginning address. Then print consistant N bytes from the beginning address.", cmd_x}
 
 	/* TODO: Add more commands */
 
