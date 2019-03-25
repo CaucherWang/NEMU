@@ -83,15 +83,15 @@ static int cmd_x(char *args)
 	char *arg1=strtok(NULL," ");
 	char *arg2=strtok(NULL," ");
 	unsigned num=0;
-	hwaddr_t begin;
+	swaddr_t begin;
 	sscanf(arg1,"%d",&num);
 	sscanf(arg2,"0x%x",&begin);
 	printf("%#08x:",begin);
 	int i=0;
 	for(i=0;i<num;++i)
 	{
-		printf("\t0x%08x",hwaddr_read(begin,4));
-		begin+=4;
+		printf("\t0x%08x",swaddr_read(begin,4));
+		begin+=1;
 		if(i%4==3)
 		printf("\n\t");
 	}
