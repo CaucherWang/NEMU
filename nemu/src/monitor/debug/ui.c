@@ -91,7 +91,7 @@ static int cmd_x(char *args)
 	for(i=0;i<num;++i)
 	{
 		printf("\t0x%08x",swaddr_read(begin,4));
-		begin+=1;
+		begin+=4;
 		if(i%4==3)
 		printf("\n\t");
 	}
