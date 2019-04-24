@@ -84,7 +84,50 @@ static bool make_token(char *e) {
 				 * types of tokens, some extra actions should be performed.
 				 */
 
+			
+
 				switch(rules[i].token_type) {
+					case NOTYPE:
+						tokens[i].type = NOTYPE;
+						++nr_token;
+						break;
+					case NUM:
+						if(substr_len>31)
+							assert(0);
+						tokens[i].type = NUM;
+						strncpy(tokens[i].str, substr_start, substr_len);
+						++nr_token;
+						break;
+					case '(':
+						tokens[i].type = '(';
+						++nr_token;
+						break;
+					case ')':
+						tokens[i].type = ')';
+						++nr_token;
+						break;
+					case '+':
+						tokens[i].type = '+';
+						++nr_token;
+						break;
+					case '-':
+						tokens[i].type = '-';
+						++nr_token;
+						break;
+					case '*':
+						tokens[i].type = '*';
+						++nr_token;
+						break;
+					case '/':
+						tokens[i].type = '/';
+						++nr_token;
+						break;
+
+					case EQ:
+						tokens[i].type = EQ;
+						++nr_token;
+						break;
+
 					default: panic("please implement me");
 				}
 
