@@ -99,6 +99,7 @@ static bool make_token(char *e) {
 						if(substr_len>31)
 							assert(0);
 						tokens[nr_token].type = NUM;
+						printf("%s\n",substr_start);
 						strncpy(tokens[i].str, substr_start, substr_len);
 						++nr_token;
 						break;
