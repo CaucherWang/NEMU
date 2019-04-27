@@ -203,7 +203,8 @@ uint32_t read_reg(char *s)
 	{
 		for(i=0;i<8;++i)
 			if(!strcmp(regsw[i],s))
-				return (uint32_t)cpu.gpr[i]._16;
+{printf("regsw[%d]=%s\n",i,regsw[i]);
+				return (uint32_t)cpu.gpr[i]._16;}
 		for(i=0;i<8;++i)
 			if(!strcmp(regsb[i],s))
 				return (uint32_t)cpu.gpr[i]._8[0];
