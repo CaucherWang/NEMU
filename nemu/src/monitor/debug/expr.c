@@ -257,11 +257,11 @@ bool check_only_parentheses(unsigned p,unsigned q)
         return false;
 }
 
-unsigned dominant_operator(unsigned p, unsigned q)
+unsigned dominant_operator(int p, int q)
 {
-	unsigned i=p;
-	int candidate[32]={-1};
-	unsigned j;
+	int i=p;
+	unsigned candidate[32];
+	int j;
 	for(j=0;j<32;++j)
 		candidate[j]=-1;
 	j=0;
@@ -291,9 +291,10 @@ unsigned dominant_operator(unsigned p, unsigned q)
 	{
 		for(i=j-1;i>=0;--i)
 			if(tokens[candidate[i]].type=='+'||tokens[candidate[i]].type=='-')
-				return i;
+				return candidate[i];
+		return candidate[j - 1];
 	}
-	else return j-1;
+	else return candidate[j-1];
 }
 
 uint32_t eval(unsigned p,unsigned q)
@@ -304,8 +305,8 @@ uint32_t eval(unsigned p,unsigned q)
     else if(p == q) { 
 		if(tokens[p].type==NUM)
 			return trans2num10(tokens[p].str);
-		else if(tokens[p].type==HEXNUM)
-			return trans2num16(tokens[p].str);
+		//else if(tokens[p].type==HEXNUM)
+			//return trans2num16(tokens[p].str);
 		//else if(tokens[p].type==REGNAME)
 		//	return read_reg(tokens[p].str);
 		else
@@ -315,14 +316,14 @@ uint32_t eval(unsigned p,unsigned q)
          * Return the value of the number.
          */
 	}
-	else if(check_parentheses(p, q) == true) {
+	//else if(check_parentheses(p, q) == true) {
         /* The expression is surrounded by a matched pair of parentheses. 
          * If that is the case, just throw away the parentheses.
          */
-        return eval(p + 1, q - 1); 
-    }
+        //return eval(p + 1, q - 1); 
+    //}
     else {
-	//assert(check_only_parentheses(p,q)==true);
+	assert(check_only_parentheses(p,q)==true);
         unsigned op = dominant_operator(p,q);
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
@@ -332,8 +333,8 @@ uint32_t eval(unsigned p,unsigned q)
             case '-': return val1 - val2;
             case '*': return val1 * val2;
             case '/': return val1 / val2;
-			case EQUAL:return val1 == val2;
-			case NOTEQUAL:return val1 != val2;
+	    case EQUAL:return val1 == val2;
+	    case NOTEQUAL:return val1 != val2;
             default: assert(0);
     	}
 	}
@@ -346,17 +347,15 @@ uint32_t expr(char *e, bool *success) {
 	}
 	--nr_token;
 	*success=true;
-	int i;
+	/* i;
 	for(i = 0; i < nr_token; i ++) 
 	{
     if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type !=NUM && tokens[i-1].type!=HEXNUM && tokens[i-1].type!=REGNAME && tokens[i-1].type!=')')) ) 
         tokens[i].type = DEREF;
 	if(tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type !=NUM && tokens[i-1].type!=HEXNUM && tokens[i-1].type!=REGNAME && tokens[i-1].type!=')')) ) 
         tokens[i].type = NEG;
-	}
+	} */
 	return eval(0,nr_token);
 	/* TODO: Insert codes to evaluate the expression. */
-	panic("please implement me");
-	return 0;
 }
 
