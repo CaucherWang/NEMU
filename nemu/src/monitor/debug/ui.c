@@ -104,7 +104,7 @@ static int cmd_p(char *args)
 	bool success=false;
 	uint32_t ans=expr(args,&success);
 	if(success)
-		printf("%u",ans);
+		printf("%u/n",ans);
 	else 
 		printf("function fault!");
 	return 0;
