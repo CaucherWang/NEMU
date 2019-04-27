@@ -285,8 +285,11 @@ unsigned dominant_operator(int p, int q)
 	}
 	bool max_priority=0;
 	for(i=0;i<j;++i)
+	{
+		printf("candidate[i]=%u\n",candidate[i]);
 		if(tokens[candidate[i]].type=='*'||tokens[candidate[i]].type=='/')
 			max_priority=1;
+	}
 	if(max_priority)
 	{
 		for(i=j-1;i>=0;--i)
