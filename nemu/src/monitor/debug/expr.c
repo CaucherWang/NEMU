@@ -315,14 +315,14 @@ uint32_t eval(unsigned p,unsigned q)
          * Return the value of the number.
          */
 	}
-    else if(check_parentheses(p, q) == true) {
+	else if(check_parentheses(p, q) == true) {
         /* The expression is surrounded by a matched pair of parentheses. 
          * If that is the case, just throw away the parentheses.
          */
         return eval(p + 1, q - 1); 
     }
     else {
-		assert(check_only_parentheses(p,q)==true);
+	//assert(check_only_parentheses(p,q)==true);
         unsigned op = dominant_operator(p,q);
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
