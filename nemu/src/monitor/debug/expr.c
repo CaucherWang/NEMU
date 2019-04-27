@@ -203,8 +203,7 @@ uint32_t read_reg(char *s)
 	{
 		for(i=0;i<8;++i)
 			if(!strcmp(regsw[i],s))
-{printf("regsw[%d]=%s\n",i,regsw[i]);
-				return (uint32_t)cpu.gpr[i]._16;}
+				return (uint32_t)cpu.gpr[i]._16;
 		for(i=0;i<8;++i)
 			if(!strcmp(regsb[i],s))
 				return (uint32_t)cpu.gpr[i]._8[0];
@@ -325,10 +324,12 @@ uint32_t eval(unsigned p,unsigned q)
         /* The expression is surrounded by a matched pair of parentheses. 
          * If that is the case, just throw away the parentheses.
          */
+	printf("impossible\n");
         return eval(p + 1, q - 1); 
         }
     else {
 	assert(check_only_parentheses(p,q)==true);
+	printf("possible\n");
         unsigned op = dominant_operator(p,q);
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
