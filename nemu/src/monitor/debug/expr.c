@@ -338,6 +338,7 @@ uint32_t eval(unsigned p,unsigned q)
             default: assert(0);
     	}
 	}
+	return 0;
 }
 
 uint32_t expr(char *e, bool *success) {
