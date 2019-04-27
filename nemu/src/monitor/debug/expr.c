@@ -92,60 +92,60 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) {
 					case NOTYPE:
-						tokens[i].type = NOTYPE;
+						tokens[nr_token].type = NOTYPE;
 						++nr_token;
 						break;
 					case NUM:
 						if(substr_len>31)
 							assert(0);
-						tokens[i].type = NUM;
+						tokens[nr_token].type = NUM;
 						strncpy(tokens[i].str, substr_start, substr_len);
 						++nr_token;
 						break;
 					case HEXNUM:
 						if(substr_len>31)
 							assert(0);
-						tokens[i].type = HEXNUM;
+						tokens[nr_token].type = HEXNUM;
 						strncpy(tokens[i].str, substr_start+2, substr_len-2);
 						++nr_token;
 						break;
 					case REGNAME:
-						tokens[i].type = REGNAME;
+						tokens[nr_token].type = REGNAME;
 						strncpy(tokens[i].str, substr_start + 1, substr_len - 1);
 						++nr_token;
 						break;
 					case '(':
-						tokens[i].type = '(';
+						tokens[nr_token].type = '(';
 						++nr_token;
 						break;
 					case ')':
-						tokens[i].type = ')';
+						tokens[nr_token].type = ')';
 						++nr_token;
 						break;
 					case '+':
-						tokens[i].type = '+';
+						tokens[nr_token].type = '+';
 						++nr_token;
 						break;
 					case '-':
-						tokens[i].type = '-';
+						tokens[nr_token].type = '-';
 						++nr_token;
 						break;
 					case '*':
-						tokens[i].type = '*';
+						tokens[nr_token].type = '*';
 						++nr_token;
 						break;
 					case '/':
-						tokens[i].type = '/';
+						tokens[nr_token].type = '/';
 						++nr_token;
 						break;
 
 					case EQUAL:
-						tokens[i].type = EQUAL;
+						tokens[nr_token].type = EQUAL;
 						++nr_token;
 						break;
 
 					case NOTEQUAL:
-						tokens[i].type=NOTEQUAL;
+						tokens[nr_token].type=NOTEQUAL;
 						++nr_token;
 						break;
 					default:
