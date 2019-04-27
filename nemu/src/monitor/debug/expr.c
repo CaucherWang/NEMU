@@ -324,13 +324,12 @@ uint32_t eval(unsigned p,unsigned q)
         /* The expression is surrounded by a matched pair of parentheses. 
          * If that is the case, just throw away the parentheses.
          */
-	printf("impossible\n");
         return eval(p + 1, q - 1); 
         }
     else {
 	assert(check_only_parentheses(p,q)==true);
-	printf("possible\n");
         unsigned op = dominant_operator(p,q);
+	printf("op=%d\ttokens[op].type=%d\n",op,tokens[op].type);
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
 
