@@ -189,7 +189,7 @@ uint32_t trans2num16(char *s)
 			ans=ans*16+(s[i]+10+s[i]-'A');
 	return ans;	
 }
-/*
+
 uint32_t read_reg(char *s)
 {
 	int i;
@@ -198,6 +198,7 @@ uint32_t read_reg(char *s)
 		for (i = 0; i < 8; ++i)
 			if(!strcmp(regsl[i],s))
 				return  cpu.gpr[i]._32;
+		return 0;
 	}
 	else
 	{
@@ -207,9 +208,10 @@ uint32_t read_reg(char *s)
 		for(i=0;i<8;++i)
 			if(!strcmp(regsb[i],s))
 				return (uint32_t)cpu.gpr[i]._8[0];
+		return 0;
 	}
 	
-}*/
+}
 
 /*不仅查明表达式中括号是否匹配，还要看整个表达式是不是被一个括号括住*/
 bool check_parentheses(unsigned p,unsigned q)
@@ -267,7 +269,7 @@ unsigned dominant_operator(int p, int q)
 	j=0;
 	for(;i<=q;++i)
 	{
-		printf("%d\t%s\n",tokens[i].type,tokens[i].str);
+		printf("tokens[%d].type=%d\t,tokens[%d].str=%s\n",i,i,tokens[i].type,tokens[i].str);
 		if(tokens[i].type!='+'&&tokens[i].type!='-'&&tokens[i].type!='*'&&tokens[i].type!='/')
 			continue;
 
