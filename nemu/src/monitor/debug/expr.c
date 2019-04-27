@@ -98,7 +98,6 @@ static bool make_token(char *e) {
 						if(substr_len>31)
 							assert(0);
 						tokens[nr_token].type = NUM;
-						printf("%s\n",substr_start);
 						strncpy(tokens[nr_token].str, substr_start, substr_len);
 						++nr_token;
 						break;
@@ -269,7 +268,6 @@ unsigned dominant_operator(int p, int q)
 	j=0;
 	for(;i<=q;++i)
 	{
-		printf("tokens[%d].type=%d\t,tokens[%d].str=%s\n",i,i,tokens[i].type,tokens[i].str);
 		if(tokens[i].type!='+'&&tokens[i].type!='-'&&tokens[i].type!='*'&&tokens[i].type!='/')
 			continue;
 
@@ -277,9 +275,8 @@ unsigned dominant_operator(int p, int q)
 		bool flag=false;
 		while(1)
 		{
-			printf("here\n");
-			while(left>=p && tokens[left].type!='('){printf("left=%d\n",left);--left;}
-			while(right<=q && tokens[right].type!=')'){printf("right=%d\n",right);++right;}
+			while(left>=p && tokens[left].type!='('){--left;}
+			while(right<=q && tokens[right].type!=')'){++right;}
 			if(left<p||right>q)	break;
 			flag=check_parentheses(left,right);
 			if(flag)	break;
@@ -333,7 +330,6 @@ uint32_t eval(unsigned p,unsigned q)
     else {
 	assert(check_only_parentheses(p,q)==true);
         unsigned op = dominant_operator(p,q);
-	printf("%u\n",op);
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
 
@@ -357,14 +353,14 @@ uint32_t expr(char *e, bool *success) {
 	}
 	--nr_token;
 	*success=true;
-	/* i;
+	int i;
 	for(i = 0; i < nr_token; i ++) 
 	{
     if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type !=NUM && tokens[i-1].type!=HEXNUM && tokens[i-1].type!=REGNAME && tokens[i-1].type!=')')) ) 
         tokens[i].type = DEREF;
 	if(tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type !=NUM && tokens[i-1].type!=HEXNUM && tokens[i-1].type!=REGNAME && tokens[i-1].type!=')')) ) 
         tokens[i].type = NEG;
-	} */
+	} 
 	return eval(0,nr_token);
 	/* TODO: Insert codes to evaluate the expression. */
 }
