@@ -283,7 +283,7 @@ unsigned dominant_operator(int p, int q)
 		if(flag)	continue;
 		candidate[j++]=i;
 	}
-	printf("here\n");
+	printf("j=%d\n",j);
 	bool max_priority=0;
 	for(i=0;i<j;++i)
 	{
