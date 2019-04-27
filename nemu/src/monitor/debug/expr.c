@@ -268,6 +268,7 @@ unsigned dominant_operator(int p, int q)
 	j=0;
 	for(;i<=q;++i)
 	{
+		printf("tokens[%d].type=%d,tokens[%d].str=%s",i,tokens[i].type,i,tokens[i].str);
 		if(tokens[i].type!='+'&&tokens[i].type!='-'&&tokens[i].type!='*'&&tokens[i].type!='/')
 			continue;
 
