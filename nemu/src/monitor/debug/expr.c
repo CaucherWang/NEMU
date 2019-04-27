@@ -274,6 +274,7 @@ unsigned dominant_operator(int p, int q)
 		bool flag=false;
 		while(1)
 		{
+			printf("here\n");
 			while(left>=p && tokens[left].type!='('){printf("left=%d\n",left);--left;}
 			while(right<=q && tokens[right].type!=')'){printf("right=%d\n",right);++right;}
 			if(left<p||right>q)	break;
