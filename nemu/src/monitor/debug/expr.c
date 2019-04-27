@@ -330,6 +330,7 @@ uint32_t eval(unsigned p,unsigned q)
         }
     else {
 	assert(check_only_parentheses(p,q)==true);
+	printf("p=%d,q=%d\n",p,q);
         unsigned op = dominant_operator(p,q);
 	printf("op=%d\ttokens[op].type=%d\n",op,tokens[op].type);
         uint32_t val1 = eval(p, op - 1);
