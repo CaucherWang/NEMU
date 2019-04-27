@@ -311,7 +311,7 @@ uint32_t eval(unsigned p,unsigned q)
 		//	return read_reg(tokens[p].str);
 		else
 			assert(0);
-		/* Single token.
+	/* Single token.
          * For now this token should be a number. 
          * Return the value of the number.
          */
@@ -325,6 +325,7 @@ uint32_t eval(unsigned p,unsigned q)
     else {
 	assert(check_only_parentheses(p,q)==true);
         unsigned op = dominant_operator(p,q);
+
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
 
@@ -346,6 +347,7 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
+printf("fuckinnnnng!!!!\n");
 	--nr_token;
 	*success=true;
 	/* i;
