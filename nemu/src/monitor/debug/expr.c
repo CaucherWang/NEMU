@@ -88,7 +88,7 @@ static bool make_token(char *e) {
 				 * types of tokens, some extra actions should be performed.
 				 */
 
-			
+				printf("position=%d",position);
 
 				switch(rules[i].token_type) {
 					case NOTYPE:
