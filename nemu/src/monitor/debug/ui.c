@@ -97,7 +97,17 @@ static int cmd_x(char *args)
 	}
 	printf("\n");
 	return 0;
+}
 
+static int cmd_p(char *args)
+{
+	bool success=false;
+	uint32_t ans=expr(args,&success);
+	if(success)
+		printf("%u",ans);
+	else 
+		printf("function fault!");
+	return 0;
 }
 
 static struct {
@@ -110,7 +120,9 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{"si","execute the program step by step, N steps in total",cmd_si},
 	{"info","info r means print the state of registers, while info w means print the information of moniting point",cmd_info},
-	{"x","x N EXPR, solve the EXPR and view the solution as the beginning address. Then print consistant N bytes from the beginning address.", cmd_x}
+	{"x","x N EXPR, solve the EXPR and view the solution as the beginning address. Then print consistant N bytes from the beginning address.", cmd_x},
+	{"p","p EXPR, calculate the value of EXPR",cmd_p}
+
 
 	/* TODO: Add more commands */
 
