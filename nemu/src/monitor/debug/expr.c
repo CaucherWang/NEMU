@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, NUM,EQ
+	NOTYPE = 256,NUM,EQUAL,HEXNUM,REGNAME,NOTEQUAL,DEREF,NEG
 
 	/* TODO: Add more token types */
 
@@ -22,15 +22,19 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	{" +",	NOTYPE},	// spaces
-	{"[0-9]+",NUM},		// one decimal number
-	{"\\(",'('},		// left parenthesis
-	{"\\)",')'},		// right parenthesis
-	{"\\*",'*'},		// multiply
-	{"\\/",'/'},		// divide
-	{"\\+", '+'},		// plus
-	{"\\-",'-'},		// minus
-	{"==", EQ}		// equal
+	{" +",	NOTYPE},		// spaces
+	{"[0-9]+",NUM},			// one decimal number
+	{"0x[0-9,a-f]+",HEXNUM},	// one hexadecimal number
+	{"$[a-z]{2,3}",REGNAME},	// a register name
+	{"\\(",'('},			// left parenthesis
+	{"\\)",')'},			// right parenthesis
+	{"\\*",'*'},			// multiply
+	{"\\/",'/'},			// divide
+	{"\\+", '+'},			// plus
+	{"\\-",'-'},			// minus
+	{"==", EQUAL},			// equal
+	{"!=",NOTEQUAL},		//not equal
+	{"!",'!'}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -98,6 +102,18 @@ static bool make_token(char *e) {
 						strncpy(tokens[i].str, substr_start, substr_len);
 						++nr_token;
 						break;
+					case HEXNUM:
+						if(substr_len>31)
+							assert(0);
+						tokens[i].type = HEXNUM;
+						strncpy(tokens[i].str, substr_start+2, substr_len-2);
+						++nr_token;
+						break;
+					case REGNAME:
+						tokens[i].type = REGNAME;
+						strncpy(tokens[i].str, substr_start + 1, substr_len - 1);
+						++nr_token;
+						break;
 					case '(':
 						tokens[i].type = '(';
 						++nr_token;
@@ -123,12 +139,17 @@ static bool make_token(char *e) {
 						++nr_token;
 						break;
 
-					case EQ:
-						tokens[i].type = EQ;
+					case EQUAL:
+						tokens[i].type = EQUAL;
 						++nr_token;
 						break;
 
-					default: panic("please implement me");
+					case NOTEQUAL:
+						tokens[i].type=NOTEQUAL;
+						++nr_token;
+						break;
+					default:
+						panic("please implement me");
 				}
 
 				break;
