@@ -88,7 +88,6 @@ static bool make_token(char *e) {
 				 * types of tokens, some extra actions should be performed.
 				 */
 
-				printf("position=%d",position);
 
 				switch(rules[i].token_type) {
 					case NOTYPE:
@@ -100,19 +99,19 @@ static bool make_token(char *e) {
 							assert(0);
 						tokens[nr_token].type = NUM;
 						printf("%s\n",substr_start);
-						strncpy(tokens[i].str, substr_start, substr_len);
+						strncpy(tokens[nr_token].str, substr_start, substr_len);
 						++nr_token;
 						break;
 					case HEXNUM:
 						if(substr_len>31)
 							assert(0);
 						tokens[nr_token].type = HEXNUM;
-						strncpy(tokens[i].str, substr_start+2, substr_len-2);
+						strncpy(tokens[nr_token].str, substr_start+2, substr_len-2);
 						++nr_token;
 						break;
 					case REGNAME:
 						tokens[nr_token].type = REGNAME;
-						strncpy(tokens[i].str, substr_start + 1, substr_len - 1);
+						strncpy(tokens[nr_token].str, substr_start + 1, substr_len - 1);
 						++nr_token;
 						break;
 					case '(':
