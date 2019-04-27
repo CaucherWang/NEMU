@@ -184,9 +184,9 @@ uint32_t trans2num16(char *s)
 		if(s[i]>='0'&&s[i]<='9')
 			ans=ans*16+(s[i]-'0');
 		else if(s[i]>='a'&&s[i]<='f')
-			ans=ans*16+(s[i]+10+s[i]-'a');
+			ans=ans*16+(s[i]+10-'a');
 		else if(s[i]>='A'&&s[i]<='F')
-			ans=ans*16+(s[i]+10+s[i]-'A');
+			ans=ans*16+(s[i]+10-'A');
 	printf("ans=%d\n",ans);
 	}
 	return ans;	
