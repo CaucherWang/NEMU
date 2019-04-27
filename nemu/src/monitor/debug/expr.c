@@ -266,6 +266,7 @@ unsigned dominant_operator(int p, int q)
 	for(j=0;j<32;++j)
 		candidate[j]=-1;
 	j=0;
+	printf("here");
 	for(;i<=q;++i)
 	{
 		printf("tokens[%d].type=%d,tokens[%d].str=%s",i,tokens[i].type,i,tokens[i].str);
