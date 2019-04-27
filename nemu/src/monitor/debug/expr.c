@@ -23,8 +23,8 @@ static struct rule {
 	 */
 
 	{" +",	NOTYPE},		// spaces
-	{"[0-9]+",NUM},			// one decimal number
 	{"0x[0-9,a-f]+",HEXNUM},	// one hexadecimal number
+	{"[0-9]+",NUM},			// one decimal number
 	{"$[a-z]{2,3}",REGNAME},	// a register name
 	{"\\(",'('},			// left parenthesis
 	{"\\)",')'},			// right parenthesis
