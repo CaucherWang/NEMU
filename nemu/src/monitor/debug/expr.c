@@ -302,36 +302,38 @@ unsigned dominant_operator(int p, int q)
 
 uint32_t eval(unsigned p,unsigned q)
 {
-	if(p > q) {
+    if(p > q) 
         assert(0);
-    }
-    else if(p == q) { 
-		if(tokens[p].type==NUM)
-			return trans2num10(tokens[p].str);
-		//else if(tokens[p].type==HEXNUM)
-			//return trans2num16(tokens[p].str);
-		//else if(tokens[p].type==REGNAME)
-		//	return read_reg(tokens[p].str);
-		else
-			assert(0);
+    else if(p == q) 
+    { 
+	if(tokens[p].type==NUM)
+		return trans2num10(tokens[p].str);
+	else if(tokens[p].type==HEXNUM)
+		return trans2num16(tokens[p].str);
+	else if(tokens[p].type==REGNAME)
+		return read_reg(tokens[p].str);
+	else
+		assert(0);
 	/* Single token.
          * For now this token should be a number. 
          * Return the value of the number.
          */
 	}
-	//else if(check_parentheses(p, q) == true) {
+	else if(check_parentheses(p, q) == true) 
+	{
         /* The expression is surrounded by a matched pair of parentheses. 
          * If that is the case, just throw away the parentheses.
          */
-        //return eval(p + 1, q - 1); 
-    //}
+        return eval(p + 1, q - 1); 
+        }
     else {
 	assert(check_only_parentheses(p,q)==true);
         unsigned op = dominant_operator(p,q);
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
 
-        switch(tokens[op].type) {
+        switch(tokens[op].type) 
+	{
             case '+': return val1 + val2;
             case '-': return val1 - val2;
             case '*': return val1 * val2;
