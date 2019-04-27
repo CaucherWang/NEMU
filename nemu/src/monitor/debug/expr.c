@@ -270,12 +270,12 @@ unsigned dominant_operator(int p, int q)
 		if(tokens[i].type!='+'&&tokens[i].type!='-'&&tokens[i].type!='*'&&tokens[i].type!='/')
 			continue;
 
-		unsigned left=i-1,right=i+1;
+		int left=i-1,right=i+1;
 		bool flag=false;
 		while(1)
 		{
-			while(left>=p && tokens[left].type!='('){--left;}
-			while(right<=q && tokens[right].type!=')'){++right;}
+			while(left>=p && tokens[left].type!='('){printf("left=%d\n",left);--left;}
+			while(right<=q && tokens[right].type!=')'){printf("right=%d\n",right);++right;}
 			if(left<p||right>q)	break;
 			flag=check_parentheses(left,right);
 			if(flag)	break;
