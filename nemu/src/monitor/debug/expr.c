@@ -25,7 +25,7 @@ static struct rule {
 	{" +",	NOTYPE},		// spaces
 	{"0x[0-9,a-f]+",HEXNUM},	// one hexadecimal number
 	{"[0-9]+",NUM},			// one decimal number
-	{"$[a-z]{2,3}",REGNAME},	// a register name
+	{"\\$[a-z]{2,3}",REGNAME},	// a register name
 	{"\\(",'('},			// left parenthesis
 	{"\\)",')'},			// right parenthesis
 	{"\\*",'*'},			// multiply
@@ -180,15 +180,12 @@ uint32_t trans2num16(char *s)
 	unsigned i=0;
 	uint32_t ans=0;
 	for(;i<len;++i)
-	{
 		if(s[i]>='0'&&s[i]<='9')
 			ans=ans*16+(s[i]-'0');
 		else if(s[i]>='a'&&s[i]<='f')
 			ans=ans*16+(s[i]+10-'a');
 		else if(s[i]>='A'&&s[i]<='F')
 			ans=ans*16+(s[i]+10-'A');
-	printf("ans=%d\n",ans);
-	}
 	return ans;	
 }
 
