@@ -303,7 +303,7 @@ unsigned dominant_operator(int p, int q)
 	else return candidate[j-1];
 }
 
-uint32_t eval(unsigned p,unsigned q)
+uint32_t eval(int p,int q)
 {
     if(p > q) 
         assert(0);
