@@ -280,7 +280,7 @@ unsigned dominant_operator(int p, int q)
 		{
 			while(left>=p && tokens[left].type!='('){--left;}
 			while(right<=q && tokens[right].type!=')'){++right;}
-			if(left<p||right>q)	break;
+			if(left<p||right>q||(left==p && right==q))	break;
 			flag=check_parentheses(left,right);
 			if(flag)	break;
 		}
