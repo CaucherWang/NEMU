@@ -311,21 +311,26 @@ unsigned dominant_operator(int p, int q)
 		if (check_if_parentheses(p, q, i))	continue;
 		candidate[j++]=i;
 	}
-	//对于可能成为返回值的进行优先级排序
-	bool max_priority=0;
-	for(i=0;i<j;++i)
-	{
+	//对于可能成为返回值的进行优先级和结合性排序
+	for(i=j-1;i>=0;--i)
+		if(tokens[candidate[i]].type==OR)
+			return candidate[i];
+	for(i=j-1;i>=0;--i)
+		if(tokens[candidate[i]].type==AND)
+			return candidate[i];
+	for(i=j-1;i>=0;--i)
+		if(tokens[candidate[i]].type==EQUAL||tokens[candidate[i]].type==NOTEQUAL)
+			return candidate[i];
+	for(i=j-1;i>=0;--i)
+		if(tokens[candidate[i]].type=='+'||tokens[candidate[i]].type=='-')
+			return candidate[i];
+	for(i=j-1;i>=0;--i)
 		if(tokens[candidate[i]].type=='*'||tokens[candidate[i]].type=='/')
-			max_priority=1;
-	}
-	if(max_priority)
-	{
-		for(i=j-1;i>=0;--i)
-			if(tokens[candidate[i]].type=='+'||tokens[candidate[i]].type=='-')
-				return candidate[i];
-		return candidate[j - 1];
-	}
-	else return candidate[j-1];
+			return candidate[i];
+	for(i=0;i<j;++i)
+		if(tokens[candidate[i]].type==NEG||tokens[candidate[i]].type=='!'||tokens[candidate[i]].type==DEREF)
+			return candidate[i];
+	return 0;
 }
 
 uint32_t eval(int p,int q)
@@ -354,7 +359,8 @@ uint32_t eval(int p,int q)
          */
         return eval(p + 1, q - 1); 
         }
-    else {
+    else 
+	{
         //int t;
 	//for(t=p;t<=q;++t)
 	//	printf("tokens[%d].type=%d\n",t,tokens[t].type);
@@ -364,11 +370,23 @@ uint32_t eval(int p,int q)
 	//printf("p=%d,q=%d\n",p,q);
         unsigned op = dominant_operator(p,q);
 	//printf("op=%d\ttokens[op].type=%d\n",op,tokens[op].type);
-        uint32_t val1 = eval(p, op - 1);
-        uint32_t val2 = eval(op + 1, q);
-
-        switch(tokens[op].type) 
-	{
+	if(tokens[op].type==NEG || tokens[op].type==DEREF || tokens[op].type=='!' )
+	  {
+	    uint32_t val=eval(op+1,q);
+	    switch(tokens[op].type)
+	    {
+	    case NEG:return -val;
+	    case DEREF: return swaddr_read(val, 4);
+	    case '!': return !val;
+            default: assert(0);
+    	    }
+	  }
+	else
+	  {
+            uint32_t val1 = eval(p, op - 1);
+            uint32_t val2 = eval(op + 1, q);
+            switch(tokens[op].type) 
+	    {
             case '+': return val1 + val2;
             case '-': return val1 - val2;
             case '*': return val1 * val2;
@@ -378,7 +396,8 @@ uint32_t eval(int p,int q)
 	    case AND: return val1 && val2;
 	    case OR: return val1 || val2;
             default: assert(0);
-    	}
+    	    }
+	  }
 	}
 	return 0;
 }
