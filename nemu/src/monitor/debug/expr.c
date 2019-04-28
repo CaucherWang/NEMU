@@ -93,8 +93,6 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) {
 					case NOTYPE:
-						tokens[nr_token].type = NOTYPE;
-						++nr_token;
 						break;
 					case NUM:
 						if(substr_len>31)
