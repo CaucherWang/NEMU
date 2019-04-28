@@ -293,7 +293,7 @@ unsigned dominant_operator(int p, int q)
 	for(;i<=q;++i)
 	{
 		//printf("tokens[%d].type=%d,tokens[%d].str=%s",i,tokens[i].type,i,tokens[i].str);
-		if(tokens[i].type!='+'&&tokens[i].type!='-'&&tokens[i].type!='*'&&tokens[i].type!='/')
+		if(tokens[i].type!='+'&&tokens[i].type!='-'&&tokens[i].type!='*'&&tokens[i].type!='/'&&tokens[i].type!=EQUAL&&tokens[i].type!=NOTEQUAL)
 			continue;
 		if (check_if_parentheses(p, q, i))	continue;
 		candidate[j++]=i;
