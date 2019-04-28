@@ -391,8 +391,8 @@ uint32_t eval(int p,int q)
             case '/': return val1 / val2;
 	    case EQUAL:return val1 == val2;
 	    case NOTEQUAL:return val1 != val2;
-	    case AND: return val1 && val2;
-	    case OR: return val1 || val2;
+	    case AND: printf("val1=%d,val2=%d\n",val1,val2);return val1 && val2;
+	    case OR: printf("val1=%d,val2=%d\n",val1,val2);return val1 || val2;
             default: assert(0);
     	    }
 	  }
