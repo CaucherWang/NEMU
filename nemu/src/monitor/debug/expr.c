@@ -258,6 +258,28 @@ bool check_only_parentheses(unsigned p,unsigned q)
         return false;
 }
 
+// 判断一个符号是不是被一个括号包围着
+bool check_if_parentheses(int p, int q, int a)
+{
+	int stack[32];
+	int stack_top = -1;
+	int i ;
+	for (i = p; i <= q; ++i)
+	{
+		if (tokens[i].type == '(')
+		{
+			stack_top++;
+			stack[stack_top] = i;
+		}
+		else if (tokens[i].type == ')')
+		{
+			if (a >= stack[stack_top] && a <= i)	return true;
+			--stack_top;
+		}
+	}
+	return false;
+}
+
 unsigned dominant_operator(int p, int q)
 {
 	//printf("here");
@@ -273,18 +295,7 @@ unsigned dominant_operator(int p, int q)
 		//printf("tokens[%d].type=%d,tokens[%d].str=%s",i,tokens[i].type,i,tokens[i].str);
 		if(tokens[i].type!='+'&&tokens[i].type!='-'&&tokens[i].type!='*'&&tokens[i].type!='/')
 			continue;
-
-		int left=i-1,right=i+1;
-		bool flag=false;
-		while(1)
-		{
-			while(left>=p && tokens[left].type!='('){--left;}
-			while(right<=q && tokens[right].type!=')'){++right;}
-			if(left<p||right>q||(left==p && right==q))	break;
-			flag=check_parentheses(left,right);
-			if(flag)	break;
-		}
-		if(flag)	continue;
+		if (check_if_parentheses(p, q, i))	continue;
 		candidate[j++]=i;
 	}
 	bool max_priority=0;
