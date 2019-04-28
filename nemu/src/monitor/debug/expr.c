@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256,NUM,EQUAL,HEXNUM,REGNAME,NOTEQUAL,DEREF,NEG
+	NOTYPE = 256,NUM,EQUAL,HEXNUM,REGNAME,NOTEQUAL,DEREF,NEG,AND,OR
 
 	/* TODO: Add more token types */
 
@@ -34,7 +34,9 @@ static struct rule {
 	{"\\-",'-'},			// minus
 	{"==", EQUAL},			// equal
 	{"!=",NOTEQUAL},		//not equal
-	{"!",'!'}
+	{"&&",AND},			//logical and
+	{"||",OR},			//logical or
+	{"!",'!'}			//logical not
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -137,7 +139,6 @@ static bool make_token(char *e) {
 						tokens[nr_token].type = '/';
 						++nr_token;
 						break;
-
 					case EQUAL:
 						tokens[nr_token].type = EQUAL;
 						++nr_token;
@@ -145,6 +146,18 @@ static bool make_token(char *e) {
 
 					case NOTEQUAL:
 						tokens[nr_token].type=NOTEQUAL;
+						++nr_token;
+						break;
+					case AND:
+						tokens[nr_token].type=AND;
+						++nr_token;
+						break;
+					case OR:
+						tokens[nr_token].type=OR;
+						++nr_token;
+						break;
+					case '!':
+						tokens[nr_token].type='!';
 						++nr_token;
 						break;
 					default:
@@ -293,11 +306,12 @@ unsigned dominant_operator(int p, int q)
 	for(;i<=q;++i)
 	{
 		//printf("tokens[%d].type=%d,tokens[%d].str=%s",i,tokens[i].type,i,tokens[i].str);
-		if(tokens[i].type!='+'&&tokens[i].type!='-'&&tokens[i].type!='*'&&tokens[i].type!='/'&&tokens[i].type!=EQUAL&&tokens[i].type!=NOTEQUAL)
+		if(tokens[i].type==NUM || tokens[i].type==HEXNUM || tokens[i].type=='(' || tokens[i].type==')' || tokens[i].type == REGNAME)
 			continue;
 		if (check_if_parentheses(p, q, i))	continue;
 		candidate[j++]=i;
 	}
+	//对于可能成为返回值的进行优先级排序
 	bool max_priority=0;
 	for(i=0;i<j;++i)
 	{
@@ -361,6 +375,8 @@ uint32_t eval(int p,int q)
             case '/': return val1 / val2;
 	    case EQUAL:return val1 == val2;
 	    case NOTEQUAL:return val1 != val2;
+	    case AND: return val1 && val2;
+	    case OR: return val1 || val2;
             default: assert(0);
     	}
 	}
