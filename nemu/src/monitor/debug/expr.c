@@ -330,10 +330,12 @@ uint32_t eval(unsigned p,unsigned q)
         return eval(p + 1, q - 1); 
         }
     else {
+        int t;
+	for(t=p;t<=q;++t)
+		printf("tokens[%d].type=%d",t,tokens[t].type);
 	if(check_only_parentheses(p,q)==false)
 		return 0;
 	printf("p=%d,q=%d\n",p,q);
-        int t;
 	for(t=p;t<=q;++t)
 		printf("tokens[%d].type=%d",t,tokens[t].type);
         unsigned op = dominant_operator(p,q);
