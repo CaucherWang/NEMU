@@ -99,6 +99,7 @@ static bool make_token(char *e) {
 							assert(0);
 						tokens[nr_token].type = NUM;
 						strncpy(tokens[nr_token].str, substr_start, substr_len);
+						tokens[nr_token].str[substr_len]='\0';
 						++nr_token;
 						break;
 					case HEXNUM:
@@ -106,11 +107,13 @@ static bool make_token(char *e) {
 							assert(0);
 						tokens[nr_token].type = HEXNUM;
 						strncpy(tokens[nr_token].str, substr_start+2, substr_len-2);
+						tokens[nr_token].str[substr_len-2]='\0';
 						++nr_token;
 						break;
 					case REGNAME:
 						tokens[nr_token].type = REGNAME;
-						strncpy(tokens[nr_token].str, substr_start + 1, substr_len - 1);
+						strncpy(tokens[nr_token].str, substr_start+ 1,substr_len-1);
+						tokens[nr_token].str[substr_len-1]='\0';
 						++nr_token;
 						break;
 					case '(':
