@@ -239,7 +239,7 @@ bool check_parentheses(unsigned p,unsigned q)
 /*仅仅查明表达式中括号是否匹配*/
 bool check_only_parentheses(unsigned p,unsigned q)
 {
-	unsigned counter=0;
+    unsigned counter=0;
     unsigned i = p;
     for (; i <= q;++i)
     {
@@ -333,6 +333,9 @@ uint32_t eval(unsigned p,unsigned q)
 	if(check_only_parentheses(p,q)==false)
 		return 0;
 	printf("p=%d,q=%d\n",p,q);
+        int t;
+	for(t=p;t<=q;++t)
+		printf("tokens[%d].type=%d",t,tokens[t].type);
         unsigned op = dominant_operator(p,q);
 	printf("op=%d\ttokens[op].type=%d\n",op,tokens[op].type);
         uint32_t val1 = eval(p, op - 1);
