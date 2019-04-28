@@ -296,17 +296,14 @@ bool check_if_parentheses(int p, int q, int a)
 
 unsigned dominant_operator(int p, int q)
 {
-	//printf("here");
 	int i=p;
 	unsigned candidate[32];
 	int j;
 	for(j=0;j<32;++j)
 		candidate[j]=-1;
 	j=0;
-	//printf("here");
 	for(;i<=q;++i)
 	{
-		//printf("tokens[%d].type=%d,tokens[%d].str=%s",i,tokens[i].type,i,tokens[i].str);
 		if(tokens[i].type==NUM || tokens[i].type==HEXNUM || tokens[i].type=='(' || tokens[i].type==')' || tokens[i].type == REGNAME)
 			continue;
 		if (check_if_parentheses(p, q, i))	continue;
@@ -354,23 +351,11 @@ uint32_t eval(int p,int q)
          */
 	}
 	else if(check_parentheses(p, q) == true) 
-	{
-        /* The expression is surrounded by a matched pair of parentheses. 
-         * If that is the case, just throw away the parentheses.
-         */
         return eval(p + 1, q - 1); 
-        }
-    else 
+        else 
 	{
-        //int t;
-	//for(t=p;t<=q;++t)
-	//	printf("tokens[%d].type=%d\n",t,tokens[t].type);
 	assert(check_only_parentheses(p,q)==true);
-	//for(t=p;t<=q;++t)
-		//printf("tokens[%d].type=%d\n",t,tokens[t].type);
-	//printf("p=%d,q=%d\n",p,q);
         unsigned op = dominant_operator(p,q);
-	//printf("op=%d\ttokens[op].type=%d\n",op,tokens[op].type);
 	if(tokens[op].type==NEG || tokens[op].type==DEREF || tokens[op].type=='!' )
 	  {
 	    uint32_t val=eval(op+1,q);
@@ -394,8 +379,8 @@ uint32_t eval(int p,int q)
             case '/': return val1 / val2;
 	    case EQUAL:return val1 == val2;
 	    case NOTEQUAL:return val1 != val2;
-	    case AND: printf("val1=%d,val2=%d\n",val1,val2);return val1 && val2;
-	    case OR: printf("val1=%d,val2=%d\n",val1,val2);return val1 || val2;
+	    case AND: return val1 && val2;
+	    case OR: return val1 || val2;
             default: assert(0);
     	    }
 	  }
