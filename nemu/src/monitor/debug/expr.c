@@ -260,6 +260,7 @@ bool check_only_parentheses(unsigned p,unsigned q)
 
 unsigned dominant_operator(int p, int q)
 {
+	printf("here");
 	int i=p;
 	unsigned candidate[32];
 	int j;
@@ -329,7 +330,8 @@ uint32_t eval(unsigned p,unsigned q)
         return eval(p + 1, q - 1); 
         }
     else {
-	assert(check_only_parentheses(p,q)==true);
+	if(check_only_parentheses(p,q)==false)
+		return 0;
 	printf("p=%d,q=%d\n",p,q);
         unsigned op = dominant_operator(p,q);
 	printf("op=%d\ttokens[op].type=%d\n",op,tokens[op].type);
