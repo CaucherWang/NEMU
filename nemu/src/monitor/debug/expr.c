@@ -247,9 +247,9 @@ bool check_only_parentheses(unsigned p,unsigned q)
             ++counter;
         else if(tokens[i].type==')')
         {
-			if (!counter)
-				return false;
-			--counter;
+	    if (!counter)
+		return false;
+	    --counter;
         }
     }
     if(!counter)
@@ -260,14 +260,14 @@ bool check_only_parentheses(unsigned p,unsigned q)
 
 unsigned dominant_operator(int p, int q)
 {
-	printf("here");
+	//printf("here");
 	int i=p;
 	unsigned candidate[32];
 	int j;
 	for(j=0;j<32;++j)
 		candidate[j]=-1;
 	j=0;
-	printf("here");
+	//printf("here");
 	for(;i<=q;++i)
 	{
 		printf("tokens[%d].type=%d,tokens[%d].str=%s",i,tokens[i].type,i,tokens[i].str);
@@ -330,18 +330,15 @@ uint32_t eval(int p,int q)
         return eval(p + 1, q - 1); 
         }
     else {
-        int t;
-	for(t=p;t<=q;++t)
-		printf("tokens[%d].type=%d\n",t,tokens[t].type);
-	if(check_only_parentheses(p,q)==false)
-		return 0;
-	for(t=p;t<=q;++t)
-		printf("tokens[%d].type=%d\n",t,tokens[t].type);
-	printf("p=%d,q=%d\n",p,q);
-	for(t=p;t<=q;++t)
-		printf("tokens[%d].type=%d\n",t,tokens[t].type);
+        //int t;
+	//for(t=p;t<=q;++t)
+	//	printf("tokens[%d].type=%d\n",t,tokens[t].type);
+	assert(check_only_parentheses(p,q)==true);
+	//for(t=p;t<=q;++t)
+		//printf("tokens[%d].type=%d\n",t,tokens[t].type);
+	//printf("p=%d,q=%d\n",p,q);
         unsigned op = dominant_operator(p,q);
-	printf("op=%d\ttokens[op].type=%d\n",op,tokens[op].type);
+	//printf("op=%d\ttokens[op].type=%d\n",op,tokens[op].type);
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
 
@@ -366,14 +363,14 @@ uint32_t expr(char *e, bool *success) {
 	}
 	--nr_token;
 	*success=true;
-	//int i;
-	/*for(i = 0; i < nr_token; i ++) 
+	int i;
+	for(i = 0; i < nr_token; i ++) 
 	{
     if(tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type !=NUM && tokens[i-1].type!=HEXNUM && tokens[i-1].type!=REGNAME && tokens[i-1].type!=')')) ) 
         tokens[i].type = DEREF;
 	if(tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type !=NUM && tokens[i-1].type!=HEXNUM && tokens[i-1].type!=REGNAME && tokens[i-1].type!=')')) ) 
         tokens[i].type = NEG;
-	} */
+	} 
 	return eval(0,nr_token);
 	/* TODO: Insert codes to evaluate the expression. */
 }
