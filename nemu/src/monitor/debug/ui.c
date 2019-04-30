@@ -110,6 +110,27 @@ static int cmd_p(char *args)
 	return 0;
 }
 
+static int cmd_w(char *args)
+{
+	WP *n_wp=new_wp(args);
+	printf("watchpoint %d:%s is set successfully.\n",n_wp->NO,n_wp->exp);
+	return 0;
+}
+
+static int cmd_d(char *args)
+{
+	char *arg = strtok(NULL, " ");
+	int num = 0;
+	sscanf(arg, "%d", &num);
+	bool ans=delete_wp (num);
+	if(ans)
+		printf("delete watchpoint %d successfully!\n", num);
+	else
+		printf("There is no watchpoint whose NO. is %d.\n",num);
+	return 0;
+}
+
+
 static struct {
 	char *name;
 	char *description;
@@ -121,8 +142,9 @@ static struct {
 	{"si","execute the program step by step, N steps in total",cmd_si},
 	{"info","info r means print the state of registers, while info w means print the information of moniting point",cmd_info},
 	{"x","x N EXPR, solve the EXPR and view the solution as the beginning address. Then print consistant N bytes from the beginning address.", cmd_x},
-	{"p","p EXPR, calculate the value of EXPR",cmd_p}
-
+	{"p","p EXPR, calculate the value of EXPR",cmd_p},
+	{"w","w EXPR, create watchpoint, every time the EXPR is changed, program is paused",cmd_w},
+	{"d","d N, delete the watchpoint whose number is N",cmd_d}
 
 	/* TODO: Add more commands */
 
