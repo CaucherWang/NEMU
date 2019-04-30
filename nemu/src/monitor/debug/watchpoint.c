@@ -86,3 +86,23 @@ bool delete_wp(int num)
 	else
 		return true;
 }
+
+int test_change()
+{
+	WP *p = head;
+	while(p)
+	{
+		bool success = false;
+		uint32_t n_value = expr(p->exp, &success);
+		assert(success);
+		if(n_value!=p->value)	
+		{
+			printf("watchpoint %d:%s is changed\n", p->NO, p->exp);
+			printf("The old value is %d\n", p->value);
+			printf("The new value is %d\n", n_value);
+			p->value = n_value;
+			return 1;
+		}
+	}
+	return 0;
+}
