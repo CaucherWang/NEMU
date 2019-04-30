@@ -81,6 +81,7 @@ bool delete_wp(int num)
 			free_wp(p);
 			break;
 		}
+		p=p->next;
 	}
 	if(p==NULL)
 		return false;
@@ -104,6 +105,7 @@ int test_change()
 			p->value = n_value;
 			return 1;
 		}
+		p=p->next;
 	}
 	return 0;
 }
