@@ -73,6 +73,7 @@ void print_wp()
 bool delete_wp(int num)
 {
 	WP *p = head;
+	printf("here\n");
 	while(p)
 	{
 		if (p->NO == num)
