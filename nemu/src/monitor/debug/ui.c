@@ -74,7 +74,7 @@ static int cmd_info(char * args)
 
 	}
 	else
-	{;}
+	{print_wp();}
 	return 0;
 }
 
