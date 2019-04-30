@@ -50,9 +50,7 @@ static int cmd_si(char *args)
 		if(num<1)
 			num = 1;
 	}	
-	int i=0;
-	for(;i<num;++i)
-		cpu_exec(1);
+	cpu_exec(num);
 	return 0;
 }
 
